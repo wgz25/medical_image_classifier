@@ -12,7 +12,7 @@ print("CLINICAL IMAGE CLASSIFIER - TRAINING")
 print("=" * 60)
 
 # Load data with correct format
-print("\n📂 Loading data...")
+print("\n Loading data...")
 train_dataset, val_dataset, _ = load_data()
 
 # Create data loaders
@@ -25,7 +25,7 @@ print(f"   Validation samples: {len(val_dataset)}")
 print(f"   Batch size: {batch_size}")
 
 # Setup model
-print("\n🏗️ Setting up model...")
+print("\n Setting up model...")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = SimpleCNN(num_classes=9).to(device)
 criterion = nn.CrossEntropyLoss()
@@ -38,7 +38,7 @@ num_epochs = 5
 train_losses = []
 val_accuracies = []
 
-print(f"\n🚀 Starting training for {num_epochs} epochs...")
+print(f"\n Starting training for {num_epochs} epochs...")
 
 for epoch in range(num_epochs):
     # Training phase
