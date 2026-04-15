@@ -5,6 +5,8 @@ import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
     def __init__(self, num_classes=9):
+        # max pool downsamples input, set to 2x2
+        # adaptive pooling makes output consistent size, set to 4x4 
         super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm2d(32)
@@ -19,6 +21,8 @@ class SimpleCNN(nn.Module):
         self.fc2 = nn.Linear(256, num_classes)
     
     def forward(self, x):
+        # batch normalization (calculate mean+sd and then shift data)
+        
         x = self.pool(F.relu(self.bn1(self.conv1(x))))
         x = self.pool(F.relu(self.bn2(self.conv2(x))))
         x = self.pool(F.relu(self.bn3(self.conv3(x))))
