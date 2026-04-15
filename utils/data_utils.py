@@ -34,6 +34,7 @@ def load_data():
         # return a TensorDataset, wraps all tensors into one set
         return torch.utils.data.TensorDataset(images, labels)
     
+    # update and return 
     train_data = convert_to_correct_format(train_dataset, "training")
     val_data = convert_to_correct_format(val_dataset, "validation")
     test_data = convert_to_correct_format(test_dataset, "test")

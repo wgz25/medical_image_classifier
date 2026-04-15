@@ -7,9 +7,11 @@ print("=" * 50)
 print("EXPLORING MEDICAL IMAGES")
 print("=" * 50)
 
+# load dataset
 print("\n1. Loading PathMNIST dataset...")
 train_dataset = PathMNIST(split='train', download=True)
 
+# print info of dataset- number of samples, sample shape, number of classes, and types of classes (9 tissue types in dataset)
 print(f"\n2. Dataset Info:")
 print(f"   Training samples: {len(train_dataset)}")
 print(f"   Image shape: {train_dataset[0][0].shape}")  # (28, 28, 3)
@@ -17,7 +19,7 @@ print(f"   Number of classes: {len(train_dataset.info['label'])}")
 print(f"   Classes: {train_dataset.info['label']}")
 
 # Fix channel order for visualization
-#pytorch uses (C, H, W) while PathMNIST's dataset is so transpose the dataset so that the shape is correct
+# pytorch uses (C, H, W) while PathMNIST's dataset is so transpose the dataset so that the shape is correct
 print("\n3. Converting to PyTorch format (C, H, W)...")
 img, label = train_dataset[0]
 img_fixed = np.transpose(img, (2, 0, 1))  # (3, 28, 28)
