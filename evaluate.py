@@ -1,3 +1,6 @@
+#imports custom model and custom functions previously defined, goal of file is to evaluate the given data and output a confusion matrix
+
+
 import torch
 from torch.utils.data import DataLoader
 from models.simple_cnn import SimpleCNN
@@ -13,11 +16,11 @@ print("=" * 60)
 
 # Load data
 print("\n Loading test data...")
-_, _, test_dataset = load_data()
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+_, _, test_dataset = load_data() # ignore training and validation sets, only need test set
+test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False) # 
 print(f"   Test samples: {len(test_dataset)}")
 
-# Load model
+# Load model (pretrained weights from checkpoints/model) 
 print("\n Loading trained model...")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = SimpleCNN(num_classes=9).to(device)
@@ -30,6 +33,7 @@ print("\n Running evaluation...")
 predictions = []
 all_labels = []
 
+# ignore gradient calculation for saving memory, return class with highest probability. discard probabilities, keep class
 with torch.no_grad():
     for images, labels in test_loader:
         images = images.to(device)
@@ -38,7 +42,8 @@ with torch.no_grad():
         predictions.extend(pred.cpu().numpy())
         all_labels.extend(labels.cpu().numpy())
 
-# Calculate metrics
+# Calculate metrics (%)
+
 accuracy = accuracy_score(all_labels, predictions)
 print(f"\n Test Accuracy: {accuracy * 100:.2f}%")
 
