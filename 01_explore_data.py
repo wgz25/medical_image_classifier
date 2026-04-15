@@ -17,6 +17,7 @@ print(f"   Number of classes: {len(train_dataset.info['label'])}")
 print(f"   Classes: {train_dataset.info['label']}")
 
 # Fix channel order for visualization
+#pytorch uses (C, H, W) while PathMNIST's dataset is so transpose the dataset so that the shape is correct
 print("\n3. Converting to PyTorch format (C, H, W)...")
 img, label = train_dataset[0]
 img_fixed = np.transpose(img, (2, 0, 1))  # (3, 28, 28)
