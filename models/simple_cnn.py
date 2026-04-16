@@ -15,10 +15,13 @@ class SimpleCNN(nn.Module):
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
         self.bn3 = nn.BatchNorm2d(128)
         self.pool = nn.MaxPool2d(2, 2)
-        self.adaptive_pool = nn.AdaptiveAvgPool2d((4, 4))
-        self.fc1 = nn.Linear(128 * 4 * 4, 256)
+        self.adaptive_pool = nn.AdaptiveAvgPool2d((2, 2))
+        self.fc1 = nn.Linear(128 * 2 * 2, 256)
         self.dropout = nn.Dropout(0.5)
         self.fc2 = nn.Linear(256, num_classes)
+    
+
+    # change: adaptive pool being at 4x4 was not a good value, after downsampling with 2x2 3 times, the final value of the input was 3x3. 4x4 was stretching it, causing blur
     
     def forward(self, x):
         # batch normalization (calculate mean+sd and then shift data)

@@ -60,7 +60,7 @@ print(f"   Device: {device}")
 print(f"   Parameters: {sum(p.numel() for p in model.parameters()):,}")
 
 # Training
-num_epochs = 5
+num_epochs = 10
 train_losses = []
 val_accuracies = []
 best_val_accuracy = 0
